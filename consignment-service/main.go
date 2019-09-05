@@ -1,26 +1,33 @@
 package main
 
 import (
+	"context"
+	"log"
+	"net"
+	"sync"
+
 	pb "github.com/Javlopez/go-api/consignment-service/proto/consignment"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 const (
 	port = ":50051"
 )
 
-type repository Interface {
+type repository interface {
 	Create(*pb.Consignment) (*pb.Consignment, error)
 }
 
 // Repository - Dummy repository, this simulates the use of a datastore
 // of some kind. We'll replace this with a real implementation later on.
 type Repository struct {
-	mu sync.RWMutex
+	mu           sync.RWMutex
 	consignments []*pb.Consignment
 }
 
 // Create a new consignment
-func (repo *Repository) Create(consignment *pb.Consignment) (*pb.Consignment, error){
+func (repo *Repository) Create(consignment *pb.Consignment) (*pb.Consignment, error) {
 	repo.mu.Lock()
 	updated := append(repo.consignments, consignment)
 	repo.consignments = updated

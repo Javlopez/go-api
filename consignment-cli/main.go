@@ -1,12 +1,13 @@
 package main
 
 import (
-	pb "consignment-service/proto/consignment"
 	"context"
 	"encoding/json"
 	"io/ioutil"
 	"log"
 	"os"
+
+	pb "github.com/Javlopez/go-api/consignment-service/proto/consignment"
 
 	"google.golang.org/grpc"
 )
