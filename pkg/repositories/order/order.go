@@ -9,12 +9,12 @@ import (
 
 // PostgresOrderRepository is an implementation of OrderRepository
 type PostgresOrderRepository struct {
-	db *sqlx.DB
+	DB *sqlx.DB
 }
 
 // NewOrderRepository creates a new order repository
 func NewOrderRepository(db *sqlx.DB) (OrderRepository, error) {
-	return &PostgresOrderRepository{db: db}, nil
+	return &PostgresOrderRepository{DB: db}, nil
 }
 
 // Create inserts a new order
@@ -32,7 +32,7 @@ func (r *PostgresOrderRepository) Create(order *models.Order) error {
 		RETURNING id
 	`
 
-	return r.db.QueryRow(
+	return r.DB.QueryRow(
 		query,
 		order.Symbol,
 		order.Price,
@@ -51,11 +51,11 @@ func (r *PostgresOrderRepository) GetAll() ([]models.Order, error) {
 		ORDER BY created_at DESC
 	`
 
-	err := r.db.Select(&orders, query)
+	err := r.DB.Select(&orders, query)
 	return orders, err
 }
 
 // Close closes the database connection
 func (r *PostgresOrderRepository) Close() error {
-	return r.db.Close()
+	return r.DB.Close()
 }

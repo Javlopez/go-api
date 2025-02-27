@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"os"
 )
 
@@ -24,6 +25,13 @@ func NewConfig() *Config {
 		DBName:   getEnv("DB_NAME", "trade_orders"),
 		SSLMode:  getEnv("DB_SSLMODE", "disable"),
 	}
+}
+
+func (c *Config) DSN() string {
+	return fmt.Sprintf(
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+		c.Host, c.Port, c.User, c.Password, c.DBName, c.SSLMode,
+	)
 }
 
 // Helper function to get environment variable with default fallback

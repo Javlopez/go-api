@@ -70,21 +70,21 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 		return
 	}
 
-	order := models.Order{
+	orderCreate := models.Order{
 		Symbol:    orderRequest.Symbol,
 		Price:     orderRequest.Price,
 		Quantity:  orderRequest.Quantity,
 		OrderType: orderRequest.OrderType,
 	}
 
-	if err := h.repo.Create(&order); err != nil {
+	if err := h.repo.Create(&orderCreate); err != nil {
 		c.JSON(http.StatusInternalServerError, models.ErrorResponse{
 			Error: "Failed to create order",
 		})
 		return
 	}
 
-	c.JSON(http.StatusCreated, order)
+	c.JSON(http.StatusCreated, &orderCreate)
 }
 
 // GetOrders godoc

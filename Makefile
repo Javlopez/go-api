@@ -73,6 +73,26 @@ migrate-create:
 	echo "-- Down: Add rollback SQL here" > ${filename}.down.sql; \
 	echo "Created migration files: ${filename}.up.sql and ${filename}.down.sql"
 
+# Run unit tests
+test:
+	@echo "Running unit tests..."
+	go test -v ./pkg/...
+
+# Run tests with coverage
+test-coverage:
+	@echo "Running tests with coverage..."
+	go test -v -coverprofile=coverage.out ./pkg/...
+	go tool cover -html=coverage.out -o coverage.html
+	@echo "Coverage report generated at coverage.html"
+
+# Run integration tests with testcontainers
+test-integration:
+	@echo "Running integration tests with testcontainers..."
+	go test -v ./test/integration/...
+
+# Run all tests
+test-all: test test-integration
+	@echo "All tests completed"
 
 # Clean temporary files
 clean:
