@@ -17,7 +17,7 @@ RUN go mod download
 COPY . .
 
 # Install swag for Swagger generation
-RUN go install github.com/swaggo/swag/cmd/swag
+RUN go install github.com/swaggo/swag/cmd/swag@latest
 
 # Generate Swagger docs
 RUN swag init -g main.go
