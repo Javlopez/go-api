@@ -62,7 +62,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./Dockerfile.migrate
+          file: ./Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta-migrate.outputs.tags }}
           labels: ${{ steps.meta-migrate.outputs.labels }}
