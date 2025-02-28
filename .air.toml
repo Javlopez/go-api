@@ -3,10 +3,10 @@ root = "."
 tmp_dir = "tmp"
 
 [build]
-  cmd = "go build -o ./tmp/api ."
+  cmd = "go build -buildvcs=false -o ./tmp/api ."
   bin = "tmp/api"
   delay = 1000
-  exclude_dir = ["assets", "tmp", "vendor"]
+  exclude_dir = ["assets", "tmp", "vendor", "test"]
   exclude_file = []
   exclude_regex = ["_test.go"]
   exclude_unchanged = false
