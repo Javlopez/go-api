@@ -30,7 +30,7 @@ jobs:
         id: meta-api
         uses: docker/metadata-action@v4
         with:
-          images: Javlopez/go-api
+          images: jlopez/go-api
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -51,7 +51,7 @@ jobs:
         id: meta-migrate
         uses: docker/metadata-action@v4
         with:
-          images: Javlopez/go-api-migrate
+          images: jlopez/go-api-migrate
           tags: |
             type=ref,event=branch
             type=ref,event=pr
