@@ -2,15 +2,18 @@
 name: Deploy to Production
 
 on:
-  push:
-    branches: [ main ]
-    tags: [ 'v*' ]
+  workflow_run:
+    workflows: ["Build API and Migrations"]
+    branches: [main]
+    types:
+      - completed
 
 jobs:
   deploy:
     name: Deploy to Server
     runs-on: ubuntu-latest
-    needs: [build]  # Make sure the build job completes first
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
 
     steps:
       - name: Check out code
